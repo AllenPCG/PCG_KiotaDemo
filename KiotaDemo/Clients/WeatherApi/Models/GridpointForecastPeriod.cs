@@ -30,6 +30,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
         /// <summary>The ending time that this forecast period is valid for.</summary>
         public DateTimeOffset? EndTime { get; set; }
         /// <summary>A link to an icon representing the forecast summary.</summary>
+#pragma warning disable CS0618
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -38,6 +39,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
 #else
         public string Icon { get; set; }
 #endif
+#pragma warning restore CS0618
         /// <summary>Indicates whether this period is daytime or nighttime.</summary>
         public bool? IsDaytime { get; set; }
         /// <summary>A textual identifier for the period. This value will not be present for hourly forecasts.</summary>
@@ -86,9 +88,11 @@ namespace KiotaDemo.Clients.WeatherApi.Models
 #endif
         /// <summary>If not null, indicates a non-diurnal temperature trend for the period (either rising temperature overnight, or falling temperature during the day)</summary>
         public KiotaDemo.Clients.WeatherApi.Models.GridpointForecastPeriod_temperatureTrend? TemperatureTrend { get; set; }
-        /// <summary>The unit of the temperature value (Fahrenheit or Celsius).This property is deprecated. Future versions will indicate the unit within the quantitative value object for the temperature property. To make use of the future standard format now, set the &quot;forecast_temperature_qv&quot; feature flag on the request.</summary>
+        /// <summary>The unit of the temperature value (Fahrenheit or Celsius).This property is deprecated. Future versions will indicate the unit within the quantitative value object for the temperature property. To make use of the future standard format now, set the "forecast_temperature_qv" feature flag on the request.</summary>
+#pragma warning disable CS0618
         [Obsolete("")]
         public KiotaDemo.Clients.WeatherApi.Models.GridpointForecastPeriod_temperatureUnit? TemperatureUnit { get; set; }
+#pragma warning restore CS0618
         /// <summary>The prevailing direction of the wind for the period, using a 16-point compass.</summary>
         public KiotaDemo.Clients.WeatherApi.Models.GridpointForecastPeriod_windDirection? WindDirection { get; set; }
         /// <summary>Peak wind gust for the period.This property as an string value is deprecated. Future versions will express this value as a quantitative value object. To make use of the future standard format now, set the &quot;forecast_wind_speed_qv&quot; feature flag on the request.</summary>
@@ -123,6 +127,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
+#pragma warning disable CS0618
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "detailedForecast", n => { DetailedForecast = n.GetStringValue(); } },
@@ -143,6 +148,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
                 { "windGust", n => { WindGust = n.GetObjectValue<KiotaDemo.Clients.WeatherApi.Models.GridpointForecastPeriod.GridpointForecastPeriod_windGust>(KiotaDemo.Clients.WeatherApi.Models.GridpointForecastPeriod.GridpointForecastPeriod_windGust.CreateFromDiscriminatorValue); } },
                 { "windSpeed", n => { WindSpeed = n.GetObjectValue<KiotaDemo.Clients.WeatherApi.Models.GridpointForecastPeriod.GridpointForecastPeriod_windSpeed>(KiotaDemo.Clients.WeatherApi.Models.GridpointForecastPeriod.GridpointForecastPeriod_windSpeed.CreateFromDiscriminatorValue); } },
             };
+#pragma warning restore CS0618
         }
         /// <summary>
         /// Serializes information the current object
@@ -151,6 +157,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
+#pragma warning disable CS0618
             writer.WriteStringValue("detailedForecast", DetailedForecast);
             writer.WriteObjectValue<KiotaDemo.Clients.WeatherApi.Models.QuantitativeValue>("dewpoint", Dewpoint);
             writer.WriteDateTimeOffsetValue("endTime", EndTime);
@@ -168,6 +175,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
             writer.WriteEnumValue<KiotaDemo.Clients.WeatherApi.Models.GridpointForecastPeriod_windDirection>("windDirection", WindDirection);
             writer.WriteObjectValue<KiotaDemo.Clients.WeatherApi.Models.GridpointForecastPeriod.GridpointForecastPeriod_windGust>("windGust", WindGust);
             writer.WriteObjectValue<KiotaDemo.Clients.WeatherApi.Models.GridpointForecastPeriod.GridpointForecastPeriod_windSpeed>("windSpeed", WindSpeed);
+#pragma warning restore CS0618
         }
         /// <summary>
         /// Composed type wrapper for classes <see cref="int"/>, <see cref="KiotaDemo.Clients.WeatherApi.Models.QuantitativeValue"/>

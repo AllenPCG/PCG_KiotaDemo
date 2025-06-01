@@ -67,6 +67,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
         public KiotaDemo.Clients.WeatherApi.Models.QuantitativeValue HeatIndex { get; set; }
 #endif
         /// <summary>The icon property</summary>
+#pragma warning disable CS0618
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -75,6 +76,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
 #else
         public string Icon { get; set; }
 #endif
+#pragma warning restore CS0618
         /// <summary>The Id property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -239,6 +241,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
+#pragma warning disable CS0618
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "barometricPressure", n => { BarometricPressure = n.GetObjectValue<KiotaDemo.Clients.WeatherApi.Models.QuantitativeValue>(KiotaDemo.Clients.WeatherApi.Models.QuantitativeValue.CreateFromDiscriminatorValue); } },
@@ -270,6 +273,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
                 { "windGust", n => { WindGust = n.GetObjectValue<KiotaDemo.Clients.WeatherApi.Models.QuantitativeValue>(KiotaDemo.Clients.WeatherApi.Models.QuantitativeValue.CreateFromDiscriminatorValue); } },
                 { "windSpeed", n => { WindSpeed = n.GetObjectValue<KiotaDemo.Clients.WeatherApi.Models.QuantitativeValue>(KiotaDemo.Clients.WeatherApi.Models.QuantitativeValue.CreateFromDiscriminatorValue); } },
             };
+#pragma warning restore CS0618
         }
         /// <summary>
         /// Serializes information the current object
@@ -278,6 +282,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
+#pragma warning disable CS0618
             writer.WriteObjectValue<KiotaDemo.Clients.WeatherApi.Models.QuantitativeValue>("barometricPressure", BarometricPressure);
             writer.WriteCollectionOfObjectValues<KiotaDemo.Clients.WeatherApi.Models.Observation_cloudLayers>("cloudLayers", CloudLayers);
             writer.WriteObjectValue<UntypedNode>("@context", Context);
@@ -306,6 +311,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
             writer.WriteObjectValue<KiotaDemo.Clients.WeatherApi.Models.QuantitativeValue>("windDirection", WindDirection);
             writer.WriteObjectValue<KiotaDemo.Clients.WeatherApi.Models.QuantitativeValue>("windGust", WindGust);
             writer.WriteObjectValue<KiotaDemo.Clients.WeatherApi.Models.QuantitativeValue>("windSpeed", WindSpeed);
+#pragma warning restore CS0618
         }
     }
 }

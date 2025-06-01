@@ -29,6 +29,11 @@ internal class Program
 
     private static void WriteWeatherToConsole(List<UntypedNode>? periods)
     {
+        if (periods == null)
+        {
+            Console.WriteLine("No weather data available.");
+            return;
+        }
         foreach (var period in periods)
         {
             var untypedObject = period as UntypedObject;
@@ -39,26 +44,41 @@ internal class Program
                 if (properties != null)
                 {
                     properties.TryGetValue("startTime", out var startTimeNode);
-                    var valueField = startTimeNode.GetType().GetField("_value", BindingFlags.NonPublic | BindingFlags.Instance);
-                    var startTimeString = valueField.GetValue(startTimeNode) as string;
+                    string? startTimeString = null;
+                    if (startTimeNode != null)
+                    {
+                        var valueField = startTimeNode.GetType().GetField("_value", BindingFlags.NonPublic | BindingFlags.Instance);
+                        startTimeString = valueField?.GetValue(startTimeNode) as string;
+                    }
 
                     properties.TryGetValue("endTime", out var endTimeNode);
-                    valueField = endTimeNode.GetType().GetField("_value", BindingFlags.NonPublic | BindingFlags.Instance);
-                    var endTimeString = valueField.GetValue(endTimeNode) as string;
+                    string? endTimeString = null;
+                    if (endTimeNode != null)
+                    {
+                        var valueField = endTimeNode.GetType().GetField("_value", BindingFlags.NonPublic | BindingFlags.Instance);
+                        endTimeString = valueField?.GetValue(endTimeNode) as string;
+                    }
 
                     properties.TryGetValue("shortForecast", out var shortForecastNode);
-                    valueField = shortForecastNode.GetType().GetField("_value", BindingFlags.NonPublic | BindingFlags.Instance);
-                    var shortForecastString = valueField.GetValue(shortForecastNode) as string;
+                    string? shortForecastString = null;
+                    if (shortForecastNode != null)
+                    {
+                        var valueField = shortForecastNode.GetType().GetField("_value", BindingFlags.NonPublic | BindingFlags.Instance);
+                        shortForecastString = valueField?.GetValue(shortForecastNode) as string;
+                    }
 
-                    var startTimeOffset = DateTimeOffset.Parse(startTimeString, CultureInfo.InvariantCulture);
-                    var startTime = startTimeOffset.DateTime;
+                    if (!string.IsNullOrEmpty(startTimeString) && !string.IsNullOrEmpty(endTimeString))
+                    {
+                        var startTimeOffset = DateTimeOffset.Parse(startTimeString, CultureInfo.InvariantCulture);
+                        var startTime = startTimeOffset.DateTime;
 
-                    var endTimeOffset = DateTimeOffset.Parse(endTimeString, CultureInfo.InvariantCulture);
-                    var endTime = endTimeOffset.DateTime;
+                        var endTimeOffset = DateTimeOffset.Parse(endTimeString, CultureInfo.InvariantCulture);
+                        var endTime = endTimeOffset.DateTime;
 
-                    Console.WriteLine($"Period: {startTime:yyyy-MM-dd hh:mm tt} - {endTime:yyyy-MM-dd hh:mm tt}");
-                    Console.WriteLine($"Short Forecast: {shortForecastString}");
-                    Console.WriteLine();
+                        Console.WriteLine($"Period: {startTime:yyyy-MM-dd hh:mm tt} - {endTime:yyyy-MM-dd hh:mm tt}");
+                        Console.WriteLine($"Short Forecast: {shortForecastString}");
+                        Console.WriteLine();
+                    }
                 }
             }
         }

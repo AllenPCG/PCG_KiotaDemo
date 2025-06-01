@@ -27,6 +27,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
         public UntypedNode Context { get; set; }
 #endif
         /// <summary>The cwa property</summary>
+#pragma warning disable CS0618
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -35,6 +36,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
 #else
         public List<KiotaDemo.Clients.WeatherApi.Models.NWSForecastOfficeId?> Cwa { get; set; }
 #endif
+#pragma warning restore CS0618
         /// <summary>The effectiveDate property</summary>
         public DateTimeOffset? EffectiveDate { get; set; }
         /// <summary>The expirationDate property</summary>
@@ -48,6 +50,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
         public string ForecastOffice { get; set; }
 #endif
         /// <summary>The forecastOffices property</summary>
+#pragma warning disable CS0618
         [Obsolete("")]
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -56,6 +59,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
 #else
         public List<string> ForecastOffices { get; set; }
 #endif
+#pragma warning restore CS0618
         /// <summary>A geometry represented in Well-Known Text (WKT) format.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -148,6 +152,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
         /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
         public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
         {
+#pragma warning disable CS0618
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "awipsLocationIdentifier", n => { AwipsLocationIdentifier = n.GetStringValue(); } },
@@ -169,6 +174,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
                 { "id", n => { ZoneId = n.GetStringValue(); } },
                 { "type", n => { ZoneType = n.GetEnumValue<KiotaDemo.Clients.WeatherApi.Models.NWSZoneType>(); } },
             };
+#pragma warning restore CS0618
         }
         /// <summary>
         /// Serializes information the current object
@@ -177,6 +183,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
+#pragma warning disable CS0618
             writer.WriteStringValue("awipsLocationIdentifier", AwipsLocationIdentifier);
             writer.WriteObjectValue<UntypedNode>("@context", Context);
             writer.WriteCollectionOfEnumValues<KiotaDemo.Clients.WeatherApi.Models.NWSForecastOfficeId>("cwa", Cwa);
@@ -195,6 +202,7 @@ namespace KiotaDemo.Clients.WeatherApi.Models
             writer.WriteEnumValue<KiotaDemo.Clients.WeatherApi.Models.Zone_Type>("@type", Type);
             writer.WriteStringValue("id", ZoneId);
             writer.WriteEnumValue<KiotaDemo.Clients.WeatherApi.Models.NWSZoneType>("type", ZoneType);
+#pragma warning restore CS0618
         }
         /// <summary>
         /// Composed type wrapper for classes <see cref="KiotaDemo.Clients.WeatherApi.Models.StateTerritoryCode"/>, <see cref="string"/>
